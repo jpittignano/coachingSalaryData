@@ -6,7 +6,7 @@ public class CoachingSalaryAnalysis{
   public static final int payColumn = 3;
   public static final int conferenceColumn = 4;
   public static final int numColumns = 10;
-  public static final int numConferences = 10;
+  public static final int numConferences = 11;
 
   public static void main (String[] args) throws FileNotFoundException{
     //Which conference has the highest average salary?
@@ -47,7 +47,7 @@ public class CoachingSalaryAnalysis{
   //find the conference that has the highest average salaries
   public static String bestConference(String pathname) throws FileNotFoundException{
     //3 parallel arrays
-    String[] conferenceNames = {"ACC", "Big 12", "Big Ten", "CUSA", "INDEP", "MAC", "MWC", "Pac-12", "SEC", "Sun Belt"};
+    String[] conferenceNames = {"ACC", "Big12", "BigTen", "CUSA", "INDEP", "MAC", "MWC", "Pac-12", "SEC", "S-Belt", "AAC"};
     int[] numConferenceOccurance = new int[numConferences];
     int[] sumSalaries = new int[numConferences];
 
@@ -61,77 +61,13 @@ public class CoachingSalaryAnalysis{
     //depending on which conference, add to num of times it occurs, and to the total salaries of that conference
     while(input.hasNextLine()){
       String currentConference = getElement("coachSalaries.csv", count, conferenceColumn);
-      if (currentConference.equals("ACC")){
-        numConferenceOccurance[0] = numConferenceOccurance[0] + 1;
-        String salaryString = getElement("coachSalaries.csv", count, payColumn);
-        if (!salaryString.equals("na")){
-          int salary = Integer.parseInt(salaryString);
-          sumSalaries[0] = sumSalaries[0] + salary;
-        }
-      }else if (currentConference.equals("Big 12")){
-        numConferenceOccurance[1] = numConferenceOccurance[1] + 1;
-        String salaryString = getElement("coachSalaries.csv", count, payColumn);
-        if (!salaryString.equals("na")){
-          int salary = Integer.parseInt(salaryString);
-          sumSalaries[1] = sumSalaries[1] + salary;
-        }
-      }else if (currentConference.equals("Big Ten")){
-        numConferenceOccurance[2] = numConferenceOccurance[2] + 1;
-        String salaryString = getElement("coachSalaries.csv", count, payColumn);
-        if (!salaryString.equals("na")){
-          int salary = Integer.parseInt(salaryString);
-          sumSalaries[2] = sumSalaries[2] + salary;
-        }
-      }else if (currentConference.equals("CUSA")){
-        numConferenceOccurance[3] = numConferenceOccurance[3] + 1;
-        String salaryString = getElement("coachSalaries.csv", count, payColumn);
-        if (!salaryString.equals("na")){
-          int salary = Integer.parseInt(salaryString);
-          sumSalaries[3] = sumSalaries[3] + salary;
-        }
-      }else if (currentConference.equals("INDEP")){
-        numConferenceOccurance[4] = numConferenceOccurance[4] + 1;
-        String salaryString = getElement("coachSalaries.csv", count, payColumn);
-        if (!salaryString.equals("na")){
-          int salary = Integer.parseInt(salaryString);
-          sumSalaries[4] = sumSalaries[4] + salary;
-        }
-      }else if (currentConference.equals("MAC")){
-        numConferenceOccurance[5] = numConferenceOccurance[5] + 1;
-        String salaryString = getElement("coachSalaries.csv", count, payColumn);
-        if (!salaryString.equals("na")){
-          int salary = Integer.parseInt(salaryString);
-          sumSalaries[5] = sumSalaries[5] + salary;
-        }
-      }else if (currentConference.equals("MWC")){
-        numConferenceOccurance[6] = numConferenceOccurance[6] + 1;
-        String salaryString = getElement("coachSalaries.csv", count, payColumn);
-        if (!salaryString.equals("na")){
-          int salary = Integer.parseInt(salaryString);
-          sumSalaries[6] = sumSalaries[6] + salary;
-        }
-      }else if (currentConference.equals("Pac-12")){
-        numConferenceOccurance[7] = numConferenceOccurance[7] + 1;
-        String salaryString = getElement("coachSalaries.csv", count, payColumn);
-        if (!salaryString.equals("na")){
-          int salary = Integer.parseInt(salaryString);
-          sumSalaries[7] = sumSalaries[7] + salary;
-        }
-      }else if (currentConference.equals("SEC")){
-        numConferenceOccurance[8] = numConferenceOccurance[8] + 1;
-        String salaryString = getElement("coachSalaries.csv", count, payColumn);
-        if (!salaryString.equals("na")){
-          int salary = Integer.parseInt(salaryString);
-          sumSalaries[8] = sumSalaries[8] + salary;
-        }
-      }else if (currentConference.equals("Sun Belt")){
-        numConferenceOccurance[9] = numConferenceOccurance[9] + 1;
-        String salaryString = getElement("coachSalaries.csv", count, payColumn);
-        if (!salaryString.equals("na")){
-          int salary = Integer.parseInt(salaryString);
-          sumSalaries[9] = sumSalaries[9] + salary;
-        }
-      }else{
+      ArrayList<String> temp = new ArrayList<> (Arrays.asList(conferenceNames));
+      int indexOfConference = temp.indexOf(currentConference);
+      numConferenceOccurance[indexOfConference] = numConferenceOccurance[indexOfConference] + 1;
+      String salaryString = getElement("coachSalaries.csv", count, payColumn);
+      if (!salaryString.equals("na")){
+        int salary = Integer.parseInt(salaryString);
+        sumSalaries[indexOfConference] = sumSalaries[indexOfConference] + salary;
       }
       count++;
       input.nextLine();
